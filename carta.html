@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Só veja</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #1e1e2f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+}
+
+/* Container */
+.container {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Envelope */
+.envelope {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/2;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.envelope:hover {
+    transform: scale(1.02);
+}
+
+/* Tampa */
+.lid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #9ed3e5;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 2;
+    backface-visibility: hidden;
+}
+
+/* Carta */
+.letter {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 16px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Abrir */
+.envelope.open .lid {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter {
+    transform: translateY(0);
+}
+
+/* Texto */
+.letter h1 {
+    color: #4f8bb3;
+    font-size: clamp(18px, 5vw, 24px);
+    margin-bottom: 10px;
+}
+
+.letter p {
+    font-size: clamp(14px, 4vw, 18px);
+    margin: 6px 0;
+    line-height: 1.4;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="envelope" onclick="toggleEnvelope()" tabindex="0">
+        <div class="lid"></div>
+
+        <div class="letter">
+            <h1>Leia com atenção</h1>
+            <p>Vossa senhoria não irá mandar as recomendações?</p>
+            <p>Não tenho mais nada a falar</p>
+            <p>Tenha um bom dia, uma boa tarde e uma boa noite.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleEnvelope() {
+    document.querySelector(".envelope").classList.toggle("open");
+}
+
+// suporte a teclado
+document.querySelector(".envelope").addEventListener("keypress", function(e){
+    if(e.key === "Enter" || e.key === " "){
+        toggleEnvelope();
+    }
+});
+</script>
+
+</body>
+</html>
